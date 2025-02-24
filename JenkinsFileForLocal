@@ -1,0 +1,22 @@
+pipeline {
+    agent any
+    environment {
+        REPORT_DIR = "cucumber-html-reports"
+        SPRING_PROFILE_PLATFORM = "android"
+        SPRING_PROFILE_ACTIVES = "local,android"
+        SPRING_PROFILE_BUNDLE = "com.krom.android.staging"
+        SPRING_PROFILE_APP = "com.krom.android.staging"
+    }
+    stages {
+        stage('Git Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+        stage('Run test') {
+            steps {
+                sh "./gradlew cucumber-run --no-build-cache"
+            }
+        }
+    }
+}
