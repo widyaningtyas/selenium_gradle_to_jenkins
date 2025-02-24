@@ -13,12 +13,7 @@ pipeline {
             steps {
                 script {
                     // Execute shell commands using zsh and source .zshrc
-                    sh '''#!/bin/zsh
-                        source $HOME/.zshrc
-                        echo $PATH
-                        which npm
-                        npm --version
-                    '''
+                    sh 'chmod +x gradlew'
                 }
             }
         }
