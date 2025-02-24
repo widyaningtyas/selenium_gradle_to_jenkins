@@ -28,4 +28,9 @@ pipeline {
             }
         }
     }
+    post {
+        always {
+            cucumber buildStatus: 'UNSTABLE', fileIncludePattern: "cucumber-html-reports/cucumber.json"
+        }
+    }
 }
