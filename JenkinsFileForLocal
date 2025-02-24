@@ -6,8 +6,22 @@ pipeline {
         SPRING_PROFILE_ACTIVES = "local,android"
         SPRING_PROFILE_BUNDLE = "com.krom.android.staging"
         SPRING_PROFILE_APP = "com.krom.android.staging"
+        PATH = "/Users/winda.widyaningtyas/.nvm/versions/node/v20.11.1/bin:$PATH"
     }
     stages {
+        stage('Load npm') {
+            steps {
+                script {
+                    // Execute shell commands using zsh and source .zshrc
+                    sh '''#!/bin/zsh
+                        source $HOME/.zshrc
+                        echo $PATH
+                        which npm
+                        npm --version
+                    '''
+                }
+            }
+        }
         stage('Git Checkout') {
             steps {
                 checkout scm
@@ -15,7 +29,7 @@ pipeline {
         }
         stage('Run test') {
             steps {
-                sh "./gradlew cucumber-run --no-build-cache"
+                sh "./gradlew cucumber-run"
             }
         }
     }
